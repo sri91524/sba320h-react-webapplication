@@ -1,20 +1,42 @@
-import {useState} from 'react'
+import {useState, useEffect, useRef} from 'react'
 function Form(props){
     
     const [formData, setFormData] = useState({title:"",author:"",searchkeyword:""});
+    const initialLoad = useRef(true);
 
     const handleInputChange = (e) =>{
         setFormData({...formData,
             [e.target.name] : e.target.value
-        })        
+        }) 
+        props.setCurrentPage(1);       
     }
 
     const handleSubmit = (e) =>{
-        e.preventDefault();
+        e.preventDefault();       
         props.clearBookList();
-        props.booksearch(formData.searchkeyword, formData.author, formData.title);        
-        
+        props.setCurrentPage(1);
+        console.log(props.currentPage);
+
+        props.booksearch(formData.searchkeyword, formData.author, formData.title, props.currentPage);  
     }
+
+    useEffect(() => {
+        // This will load default data on the first page when the component loads
+        if(initialLoad.current)
+        {
+            initialLoad.current = false;
+            if (!formData.searchkeyword && !formData.author && !formData.title) {            
+                props.booksearch('', '', 'artificial intelligence', props.currentPage); // Default search term on first load
+            } else {
+                props.booksearch(formData.searchkeyword, formData.author, formData.title, props.currentPage);
+            }
+        }
+        else
+        {
+            props.booksearch(formData.searchkeyword, formData.author, formData.title, props.currentPage);            
+        }
+        
+      }, [formData, props.currentPage]);    
 
     return(
         <div className='flex items-center justify-center'>

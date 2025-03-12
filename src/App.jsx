@@ -38,9 +38,9 @@ const getBooks = async(searchterm, author, title, page) => {
     }    
 } 
 
-useEffect(() =>{
-  getBooks('','','artificial intelligence',currentPage);
-},[currentPage]);
+// useEffect(() =>{
+//   getBooks('','','artificial intelligence',currentPage);
+// },[currentPage]);
 
 const filterUniqueBooks = (books) =>{
   const uniqueBooks = [];
@@ -62,16 +62,21 @@ const clearBookList = () =>{
   return (    
     <>
       <h1 className="title">BookQuest</h1>
-      <Form booksearch={getBooks} clearBookList = {clearBookList} />
+      <Form booksearch={getBooks} clearBookList = {clearBookList} currentPage ={currentPage} setCurrentPage={setCurrentPage}/>
       <div className="pagination-container">
-        <Pagination currentPage ={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        {
+          bookResult && bookResult.length > 0 && (
+            <Pagination currentPage ={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          )
+        }
+        
       </div>
       <div className='img-container'>     
         {              
           bookResult && bookResult.length > 0 ?
           bookResult.map(book => <BookList book={book} key={book.id} />):
           (
-            <p>No books available</p>
+            <p className='emptyresult'>No books found for this search. <br/>Please try different keywords for filters.</p>
           )
         } 
        

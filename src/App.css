@@ -14,6 +14,14 @@ body {
     color: white
   }
 
+  .emptyresult{
+    font-size: 30px;
+    font-weight: bold;  
+    text-align: center;
+    color: rgb(246, 246, 127);
+    width:100%
+  }
+
   .paginationtext {
     font-size: 16px;
     font-weight: bold;     
@@ -51,9 +59,9 @@ body {
 
 .btnsearch {
   padding: 10px 10px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  background-color: orangered;
+  background-color: red;
   color: white;
   border: none;
   border-radius: 5px;    
