@@ -4,6 +4,7 @@ function Form(props){
     const [formData, setFormData] = useState({title:"",author:"",searchkeyword:""});
     const initialLoad = useRef(true);
 
+//onchange of inputs, formdata will be stored in usestate
     const handleInputChange = (e) =>{
         setFormData({...formData,
             [e.target.name] : e.target.value
@@ -19,11 +20,13 @@ function Form(props){
 
         props.booksearch(formData.searchkeyword, formData.author, formData.title, props.currentPage);  
     }
-
+//on pagination and formdata changed, then booksearch functionality will be called
     useEffect(() => {
         // This will load default data on the first page when the component loads
         if(initialLoad.current)
         {
+            //Initialload - on refresh, result based on articfical intelligence will be populated
+            //else based on search criteria, result will be populated
             initialLoad.current = false;
             if (!formData.searchkeyword && !formData.author && !formData.title) {            
                 props.booksearch('', '', 'artificial intelligence', props.currentPage); // Default search term on first load
@@ -39,7 +42,7 @@ function Form(props){
       }, [formData, props.currentPage]);    
 
     return(
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center mb-2'>
             <form onSubmit={handleSubmit} className='w-4/5 max-w-4xl'>
                 <div className="grid gap-4 mb-6 md:grid-cols-4">
                     <div>
@@ -55,10 +58,10 @@ function Form(props){
                         <input type="text" id="searchkeyword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-8 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="searchkeyword" placeholder="Keyword" value ={formData.searchkeyword || ''} onChange ={handleInputChange} />
                     </div> 
  
-                    <div className="flex items-center justify-left">
+                    <div className="inline-flex  justify-left mt-auto">
                         <input 
-                            type="submit" value="search" 
-                            className="w-full sm:w-auto  text-center btnImage"
+                            type="submit" value="Search" 
+                            className="w-full sm:w-auto  text-center btnSearch"
                         />
                      </div>
                 </div>

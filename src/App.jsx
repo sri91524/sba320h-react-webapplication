@@ -4,28 +4,42 @@ import Form from './components/Form';
 import {useState, useEffect} from 'react'
 import Pagination from './components/Pagination';
 
-
+/**
+ * 
+ * !-- This application is designed to enable users to search books online and can preview it
+ * !-- Uses Googleapis - 
+ * !-- @Params - search keyword, title, author, max results - 40 (allowable limit)
+ * !-- Authorization API KEY 
+ */
 function App() {
+
+  //ToDo -- useState to store search result from api, current page and total pages for pagination
   const apiKey = import.meta.env.VITE_GOOGLEBOOK_API_KEY;
   const [bookResult, setBookResult] = useState(null);
   const[currentPage, setCurrentPage] = useState(1);
   const[totalPages, setTotalPages] = useState(1);
+
+  //ToDo -- Fetching from google api passing required parameters
   
 const getBooks = async(searchterm, author, title, page) => {
   let url=`https://www.googleapis.com/books/v1/volumes?q=${searchterm}+intitle:${title}+inauthor:${author}&maxResults=40&key=${apiKey}`;
-  console.log(url);
+  
   try{
     if(searchterm || author || title){
       const response = await fetch(url);
       const data = await response.json(); 
+      //Sometimes, we are getting duplicate records
+      // filterUniqueBooks method used to get unique records
       if(data.items){
         const uniqueBooks = filterUniqueBooks(data.items);
-        // setBookResult(uniqueBooks);
+        
+      //10 books/page
         setTotalPages(Math.ceil(uniqueBooks.length/10));
 
+        //fetching required records from result for pagination
         const startIndex = (page - 1) * 10;
         const pagedBooks = uniqueBooks.slice(startIndex, startIndex + 10);
-
+        //store it in useState
         setBookResult(pagedBooks);
       } 
       else{
@@ -38,9 +52,7 @@ const getBooks = async(searchterm, author, title, page) => {
     }    
 } 
 
-// useEffect(() =>{
-//   getBooks('','','artificial intelligence',currentPage);
-// },[currentPage]);
+//ToDo -- filter unique records
 
 const filterUniqueBooks = (books) =>{
   const uniqueBooks = [];
@@ -53,7 +65,7 @@ const filterUniqueBooks = (books) =>{
   });
   return uniqueBooks;
 }
-
+//clear old list of result
 const clearBookList = () =>{
   console.log("clear book list")
   setBookResult(null);
@@ -63,6 +75,7 @@ const clearBookList = () =>{
     <>
       <h1 className="title">BookQuest</h1>
       <Form booksearch={getBooks} clearBookList = {clearBookList} currentPage ={currentPage} setCurrentPage={setCurrentPage}/>
+      //pagination available only if there are records from search result
       <div className="pagination-container">
         {
           bookResult && bookResult.length > 0 && (
@@ -71,6 +84,8 @@ const clearBookList = () =>{
         }
         
       </div>
+      //if there is search result,then book components will be displayed
+      //else books not available message
       <div className='img-container'>     
         {              
           bookResult && bookResult.length > 0 ?

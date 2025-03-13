@@ -11,7 +11,7 @@ body {
     font-size: 50px;
     font-weight: bold;  
     text-align: left;
-    color: white
+    color:white;
   }
 
   .emptyresult{
@@ -49,6 +49,11 @@ body {
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);                
 }
+
+.imghover{
+    transform: scale(1.4); 
+}
+
 .btnImage{
     background-image: url('./images/search.png'); 
     background-size: cover; 
@@ -57,7 +62,23 @@ body {
     cursor: pointer;
 }
 
-.btnsearch {
+.btnSearch{
+  font-weight: bold;
+  background-color:blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  align-items: center;   
+  text-align: center;    
+  width:100px;
+  height: 30px;
+  display: inline-flex;         
+  justify-content: center; 
+  font-size: 18px;
+  
+}
+
+.btnPage {
   padding: 10px 10px;
   font-size: 18px;
   font-weight: bold;
