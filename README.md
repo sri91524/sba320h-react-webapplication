@@ -8,6 +8,8 @@ React Web Application Project
 ### Technologies
 Vite, React, Javascript, tailwindcss
 
+#### A link to live site -- https://sri-react-bookquest.netlify.app/
+
 #### Components and API
 --- Google Book Api used
 --- env file used to store API_Key and added in gitignore to avoid tracking in github
