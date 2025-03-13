@@ -1,12 +1,29 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# RTT-60-2024 Class Repo
 
-Currently, two official plugins are available:
+## Description
+React Web Application Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Technologies
+Vite, React, Javascript, tailwindcss
 
-## Expanding the ESLint configuration
+#### Components and API
+--- Google Book Api used
+--- env file used to store API_Key and added in gitignore to avoid tracking in github
+--- React components like SearchForm, BookList, and Pagination are developed and used inside App.jsx
+--- React hooks like useState, useRef, useEffect are used
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##### Functionality
+---- User can search books using googlebooks api based on Keyword, Author or Title
+---- Book covers along with Title/Author will be displayed
+---- On clicking the Book cover, user will be redirected to preview of that google book
+---- 10 Book details are displayed per page and max. 40 books are allowed to fetch from api.
+---- if there is no result for the search, "no books found" will be displayed
+
+###### Approach
+---- useState is used to store book search result, currentpage & totalpages to retain across page rendering
+---- useEffect is used to render page on change in formdata or paginatione
+---- Initially, Artificial Intelligence books are displayed with use of useEffect
+---- useRef is used to allow display Artificial Intelligence book only on initial load
+---- Fetch is used to access Googlebooks api

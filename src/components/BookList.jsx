@@ -1,9 +1,6 @@
 function BookList({book}){    
    const loaded = () =>{
-    // console.log(book);
-    // console.log(`${book.volumeInfo.title} by book.volumeInfo.authors.join(",")`);
-    // console.log(`Publisher - ${book.volumeInfo.publisher}`);
-    // console.log(`Published Date -  ${book.volumeInfo.publishedDate}`);
+   
         return (     
             <div >
                 <div className="max-w-sm w-64 h-75 bg-amber-100 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 items-center content-center flex flex-col">
